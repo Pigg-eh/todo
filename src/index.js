@@ -5,7 +5,7 @@ import { helloNote } from './helloConsole';
 import { makeNote } from './newNote';
 
 const testNote = helloNote()
-const noteArray = []
+export const noteArray = []
 const workspaceArray = [defaultWorkspace]
 
 function component() {
@@ -16,42 +16,46 @@ function component() {
     button.textContent = `New Note`
     button.classList.add('hello');
 
-    button.onclick= noteArray.push('e')
+    noteArray.push(makeNote)
+    button.addEventListener("click", doThing);
+
+    function doThing(){
+      workspaceArray.push(makeNote())
+
+    }
     
 
     // ${i}
     return button;
   }
 
-  function component2() {
+  function LOGGER() {
   
 
-    const button = document.createElement('div');
- 
-    button.textContent = noteArray
+    const button = document.createElement('button');
+    
+    button.textContent = 'LOG'
+    button.addEventListener("click", LOGConsole);
 
+    function LOGConsole(){
+      console.log(workspaceArray)
+      console.log(noteArray)
+    } 
+  
 
-
-    // ${i}
     return button;
   }
- 
+
+
+
   document.body.appendChild(component());
-  
-  console.log(testNote)
+  document.body.appendChild(LOGGER());
 
 
  /*
 -
 
- object{
-  title
-  description
-  dueDate 
-  priority
-  label 
-  checked
-} 
+**refactor or delete components later**
 
 (i.e. creating new todos, 
 setting todos as complete, 

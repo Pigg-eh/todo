@@ -1,6 +1,6 @@
-import { Workspace} from "./createWorkspace";
+import { Workspace, defaultWorkspace} from "./createWorkspace";
 
-export class Note extends Workspace{
+export class Note extends defaultWorkspace{
   
   constructor(title, description, dueDate, priority, checked){
   super();
