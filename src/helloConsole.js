@@ -1,16 +1,16 @@
 import { Note } from "./createNote";
 
-export function hello(){
+export const helloNote =()=>{
   let morningRoutine = new Note(
     'Thing to do', 
     'thethingineedtodo', 
     '9/22',
     2,
-    'Insert Label here',
     false
   )
   return morningRoutine
 }
+
 
 
 

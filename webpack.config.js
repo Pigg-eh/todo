@@ -7,8 +7,18 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true,
     library: 'lib', 
   },
+    devtool: "eval-source-map",
+    devServer: {
+    watchFiles: ["./src/index.html"],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
   module: {
     rules: [
       {
@@ -17,10 +27,5 @@ module.exports = {
       },
     ],
   },
-
-  plugins: [        
-    new HtmlWebpackPlugin({
-    template: './src/index.html',
-    }),
-  ],
 };
+
