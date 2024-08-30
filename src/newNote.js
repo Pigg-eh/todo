@@ -5,13 +5,16 @@ import { Note } from './createNote';
 export const makeNote =()=>{
     
 
-    const testNote = new Note(
+    const noteForm = new Note(
       prompt('Note Title'), 
       prompt('description'), 
       prompt('date'),
       2,
       false
     )
-    return testNote
+
+    noteForm.label = prompt('Label')
+    //a button can be added to add to the Label itself
+    return noteForm
   }
   

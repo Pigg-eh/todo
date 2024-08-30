@@ -1,14 +1,12 @@
-  import './style.css';
+import './style.css';
 import { Note } from './createNote';
 import { Workspace, defaultWorkspace} from './createWorkspace';
-import { helloNote } from './helloConsole';
 import { makeNote } from './newNote';
 
-const testNote = helloNote()
-export const noteArray = []
+const noteArray = []
 const workspaceArray = [defaultWorkspace]
 
-function component() {
+function componentMAKENOTE() {
   
 
     const button = document.createElement('button');
@@ -16,11 +14,10 @@ function component() {
     button.textContent = `New Note`
     button.classList.add('hello');
 
-    noteArray.push(makeNote)
     button.addEventListener("click", doThing);
 
     function doThing(){
-      workspaceArray.push(makeNote())
+      noteArray.push(makeNote())
 
     }
     
@@ -29,8 +26,7 @@ function component() {
     return button;
   }
 
-  function LOGGER() {
-  
+  function componentLOGGER() {
 
     const button = document.createElement('button');
     
@@ -48,23 +44,26 @@ function component() {
 
 
 
-  document.body.appendChild(component());
-  document.body.appendChild(LOGGER());
-
+  document.body.appendChild(componentMAKENOTE());
+  document.body.appendChild(componentLOGGER());
 
  /*
 -
 
-**refactor or delete components later**
 
-(i.e. creating new todos, 
-setting todos as complete, 
-changing todo priority etc.
+
+Users should be able to create new projects and choose which project their todos go into.
+
+if a new label is made a new workspace should be made
+array should probably be in workspace
+
 
 []]View all projects.
 []View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
 []Expand a single todo to see/edit its details.
 []Delete a todo.
 
-note: need to make breakpoints and refresh (for now) 
+note: 
+**refactor or delete components later**
+
   */
