@@ -1,37 +1,39 @@
 import { Note } from "./createNote";
 
-// export class Workspace{
-//   constructor(label, notepile, color){
-//     this.label = label='default';
-//     this.notepile = notepile=[]; 
-//     this.color = color='black';
-//   }
-  
-// }
-
 export class Workspace{
-  constructor(label, notepile, color){
+  static allNotes = []
+
+  constructor(label='default', color= 'black'){
     this.label = label;
-    this.notepile = notepile; 
     this.color = color;
+    Workspace.allNotes.push(this);
   }
   
-}
+  displayNotes(){
+    console.log(this.allNotes)
+  }
+ 
+  // []View all projects.
+  // addToAllNotes(array){
+  //   array.forEach(element => {
+  //     array.push(element)
+  //   });
+  // }
 
-export function defaultWorkspace(){
-  let origin = new Workspace(
-    'default', 
-    [], 
-    'black'
-  )
-  return origin
-}
+  // []View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
+
+  //get all notes with the same label
+  
+  // / a method that returns an array of all notes with the same label
+
+ 
+  }
+
 
 
 
   /*
--has to extend from the workspace itself
--
+
 
   object{
   title

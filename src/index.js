@@ -1,10 +1,8 @@
 import './style.css';
-import { Note } from './createNote';
-import { Workspace, defaultWorkspace} from './createWorkspace';
-import { makeNote } from './newNote';
+import { Note, testNote} from './createNote';
+import { Workspace} from './createWorkspace';
 
-const noteArray = []
-const workspaceArray = [defaultWorkspace]
+const workspaceArray = () => [Workspace]
 
 function componentMAKENOTE() {
   
@@ -17,12 +15,10 @@ function componentMAKENOTE() {
     button.addEventListener("click", doThing);
 
     function doThing(){
-      noteArray.push(makeNote())
-
+      testNote()
     }
     
 
-    // ${i}
     return button;
   }
 
@@ -33,14 +29,19 @@ function componentMAKENOTE() {
     button.textContent = 'LOG'
     button.addEventListener("click", LOGConsole);
 
+    const helloNote = new Note('hello', 'helloLabel', 9/1)
+    const helloNote2 = new Note('hello2', 'helloLabel', 9/12)
+    
+
     function LOGConsole(){
-      console.log(workspaceArray)
-      console.log(noteArray)
+      console.log(workspaceArray())
+      console.log(Workspace.allNotes)
     } 
   
 
     return button;
   }
+
 
 
 
@@ -52,13 +53,11 @@ function componentMAKENOTE() {
 
 
 
-Users should be able to create new projects and choose which project their todos go into.
 
-if a new label is made a new workspace should be made
+#if a new label is made a new workspace should be made
 array should probably be in workspace
 
-
-[]]View all projects.
+[X]View all projects.
 []View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
 []Expand a single todo to see/edit its details.
 []Delete a todo.
