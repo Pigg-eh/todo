@@ -2,26 +2,34 @@ import { Note } from "./createNote";
 
 export class Workspace{
   static allNotes = []
-//still adds workspaces as well
+  
   constructor(label, color= 'black'){
     this.label = label;
     this.color = color;
-    Workspace.allNotes.push(this);
+
+    if(this instanceof Note){
+      Workspace.allNotes.push(this);
+    }
   }
   
-  // displayWorkspace(){
-  //   console.log(allNotes)
-  // }  
-
+//Select all workspace
   static getWorkspace(selectedLabel){
     return Workspace.allNotes.filter((note) => note.label === selectedLabel);
   }
 
-  // []View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
+// []View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
 
-  //get all notes with the same label
+//delete note
+  deleteNote(){
+    const referenceNote = Workspace.allNOtes.indexOf(this)
+    Workspace.allNotes.splice(referenceNote, 0);
+    console.log(allNotes)
+  }
+//not sure how to indexOf the currently selected note(maybe match by title)
+
+
+
   
-  // / a method that returns an array of all notes with the same label
 
  
   }

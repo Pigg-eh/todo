@@ -32,14 +32,15 @@ function componentMAKENOTE() {
     const helloNote2 = new Note('hello2', 'description', 9/12, 'helloLabel')
     const helloNote3 = new Note('hello3', 'description', 9/132, 'helloLabel')
     const helloNote4 = new Note('hello4', 'description', 9/1342, 'helloLabel2')
-    const ws1 = new Workspace()
+    const ws1 = new Workspace('testing')
 
     function LOGConsole(){
         console.table(Workspace.allNotes)
         console.log(helloNote4.label)
 
-        const array = Workspace.getWorkspace('helloLabel')
-        console.log(array)
+    //     helloNote4.deleteNote()
+    //     console.table(Workspace.allNotes)
+    //     console.log()
     } 
   
 
@@ -64,9 +65,9 @@ array should probably be in workspace
 [X]View all projects.
 [X]View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
 []Expand a single todo to see/edit its details.
-[]Delete a todo.
+[]Delete a todo. **
 
 note: 
 **refactor or delete components later**
-
+**refactor how workspaces are made in logic
   */

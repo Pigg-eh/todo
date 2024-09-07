@@ -15,6 +15,7 @@ export class Note extends Workspace{
   checkedBool =()=> this.checked = !this.checked
   //flip the checked boolean is what i think this does
 
+  
 }
 
 
