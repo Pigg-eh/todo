@@ -2,23 +2,20 @@ import { Note } from "./createNote";
 
 export class Workspace{
   static allNotes = []
-
-  constructor(label='default', color= 'black'){
+//still adds workspaces as well
+  constructor(label, color= 'black'){
     this.label = label;
     this.color = color;
     Workspace.allNotes.push(this);
   }
   
-  displayNotes(){
-    console.log(this.allNotes)
+  // displayWorkspace(){
+  //   console.log(allNotes)
+  // }  
+
+  static getWorkspace(selectedLabel){
+    return Workspace.allNotes.filter((note) => note.label === selectedLabel);
   }
- 
-  // []View all projects.
-  // addToAllNotes(array){
-  //   array.forEach(element => {
-  //     array.push(element)
-  //   });
-  // }
 
   // []View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
 
@@ -28,6 +25,7 @@ export class Workspace{
 
  
   }
+
 
 
 

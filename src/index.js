@@ -2,7 +2,6 @@ import './style.css';
 import { Note, testNote} from './createNote';
 import { Workspace} from './createWorkspace';
 
-const workspaceArray = () => [Workspace]
 
 function componentMAKENOTE() {
   
@@ -29,13 +28,18 @@ function componentMAKENOTE() {
     button.textContent = 'LOG'
     button.addEventListener("click", LOGConsole);
 
-    const helloNote = new Note('hello', 'helloLabel', 9/1)
-    const helloNote2 = new Note('hello2', 'helloLabel', 9/12)
-    
+    const helloNote = new Note('hello', 'description', 9/1, 'helloLabel')
+    const helloNote2 = new Note('hello2', 'description', 9/12, 'helloLabel')
+    const helloNote3 = new Note('hello3', 'description', 9/132, 'helloLabel')
+    const helloNote4 = new Note('hello4', 'description', 9/1342, 'helloLabel2')
+    const ws1 = new Workspace()
 
     function LOGConsole(){
-      console.log(workspaceArray())
-      console.log(Workspace.allNotes)
+        console.table(Workspace.allNotes)
+        console.log(helloNote4.label)
+
+        const array = Workspace.getWorkspace('helloLabel')
+        console.log(array)
     } 
   
 
@@ -58,7 +62,7 @@ function componentMAKENOTE() {
 array should probably be in workspace
 
 [X]View all projects.
-[]View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
+[X]View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
 []Expand a single todo to see/edit its details.
 []Delete a todo.
 

@@ -2,8 +2,8 @@ import { Workspace} from "./createWorkspace";
 
 export class Note extends Workspace{
   
-  constructor(title, description, dueDate){
-    super();
+  constructor(title, description, dueDate,label){
+    super(label);
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
@@ -13,7 +13,7 @@ export class Note extends Workspace{
 
 
   checkedBool =()=> this.checked = !this.checked
-  //flip the checked boolean
+  //flip the checked boolean is what i think this does
 
 }
 
