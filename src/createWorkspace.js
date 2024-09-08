@@ -12,18 +12,19 @@ export class Workspace{
     }
   }
   
-//Select all workspace
   static getWorkspace(selectedLabel){
     return Workspace.allNotes.filter((note) => note.label === selectedLabel);
+    //Workspace.getWorkspace('label')
   }
 
 // []View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
 
-//delete note
   deleteNote(){
-    const referenceNote = Workspace.allNOtes.indexOf(this)
-    Workspace.allNotes.splice(referenceNote, 0);
-    console.log(allNotes)
+    const referenceNote = Workspace.allNotes.indexOf(this) //select note
+    Workspace.allNotes.splice(referenceNote, 1);
+    console.log(Workspace.allNotes)
+    //noteVar.deleteNote()
+    //Workspace.allNotes
   }
 //not sure how to indexOf the currently selected note(maybe match by title)
 
