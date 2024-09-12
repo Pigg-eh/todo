@@ -37,8 +37,6 @@ export const testNote =()=>{
   return noteForm
 }
 
-// []Expand a single todo to see/edit its details.
- // []Delete a todo.
   /*
   object{
   title

@@ -26,7 +26,6 @@ export class Workspace{
     //noteVar.deleteNote()
     //Workspace.allNotes
   }
-//not sure how to indexOf the currently selected note(maybe match by title)
 
 
 
