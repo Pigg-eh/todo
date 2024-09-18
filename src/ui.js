@@ -1,15 +1,15 @@
-
+import { Note} from './createNote';
+import { Workspace} from './createWorkspace';
 
 export default class UI{
 
-    // []load in homepage/startpoint loadHome()
+    loadMenu(){
+
+    }
     // []workspace ui loadMenu()
     //     -daily/weekly/all
     //     -user created workspaces
-    loadHome(){
-        
-    }
-
+    
     
 /*
 []load in homepage/startpoint loadHome()

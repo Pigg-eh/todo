@@ -1,6 +1,7 @@
 import './style.css';
 import { Note, testNote} from './createNote';
 import { Workspace} from './createWorkspace';
+import { setDate } from 'date-fns';
 
 
 function componentMAKENOTE() {
@@ -9,13 +10,9 @@ function componentMAKENOTE() {
  
     button.textContent = `New Note`
     button.classList.add('hello');
-
-    button.addEventListener("click", doThing);
-
-    function doThing(){
-      testNote()
-    }
+    button.addEventListener("click", testNote);
     
+
     return button;
   }
 
@@ -26,15 +23,31 @@ function componentMAKENOTE() {
     button.textContent = 'LOG'
     button.addEventListener("click", LOGConsole);
 
-    const helloNote = new Note('hello', 'description', 9/1, 'helloLabel')
-    const helloNote2 = new Note('hello2', 'description', 9/12, 'helloLabel')
-    const helloNote3 = new Note('hello3', 'description', 9/132, 'helloLabel2')
-    const helloNote4 = new Note('hello4', 'deleted one is I', 9/1342, 'helloLabel2')
+    const helloNote = new Note('hello', 'description', 'helloLabel')
+    const helloNote2 = new Note('hello2', 'description',  'helloLabel')
+    const helloNote3 = new Note('hello3', 'description', 'helloLabel2')
+    const helloNote4 = new Note('hello4', 'deleted one is I', 'helloLabel2')
     const ws1 = new Workspace('testing')
 
     function LOGConsole(){
-        console.table(Workspace.allNotes)
+      console.table(Workspace.allNotes)
+      console.log(Workspace.allNotes[3].dueDate)
+    } 
+    
+    return button;
+  }
 
+  function test() {
+
+    const button = document.createElement('button');
+    
+    button.textContent = 'date set'
+    button.addEventListener("click", check);
+
+  
+
+    function check(){
+      Workspace.allNotes[3].userDueDate = ('1908-03-14')
     } 
     
     return button;
@@ -45,6 +58,7 @@ function componentMAKENOTE() {
 
   document.body.appendChild(componentMAKENOTE());
   document.body.appendChild(componentLOGGER());
+  document.body.appendChild(test());
 
  /*
 -
