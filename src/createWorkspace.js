@@ -1,12 +1,12 @@
 import { Note } from "./createNote";
-import { format, compareAsc, isToday , isTomorrow, isYesterday, isThisWeek, } from "date-fns";
+import { compareAsc, isEqual} from "date-fns";
 
 export class Workspace{
   static allNotes = []
-  
+  static allWorkspace = []
   
   constructor(label, color= 'black'){
-    this.label = label;
+    this.label = label || 'default';
     this.color = color;
 
 
@@ -15,26 +15,26 @@ export class Workspace{
       Workspace.allNotes.push(this);
     }
 
+    if(this instanceof Note === false){
+      Workspace.allWorkspace.push(this);
+    }
 
   }
   
   static getWorkspace(selectedLabel){
     return Workspace.allNotes.filter((note) => note.label === selectedLabel);
-    //Workspace.getWorkspace('label')
+    //Workspace.getWorkspace(label)
     // []View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
   }
 
-  static getToday=()=>allNotes.filter((note)=>isToday(note.dueDate))
-  static getTomorrow=()=>allNotes.filter((note)=>isTomorrow(note.dueDate))
-  static getYesterday=()=>allNotes.filter((note)=>isYesterday(note.dueDate))
-  static getWeek=()=>allNotes.filter((note)=>isThisWeek(note.dueDate))
-  //all the same so maybe I can make it into one 
-  //static getWeek=()=>allNotes.filter((note)=>clickedValue(note.dueDate))
+  static getTimeline(dateInput){
+    return Workspace.allNotes.filter((note)=>isEqual(note.dueDate, new Date(dateInput)));
+    // /Workspace.getTimeline(date)
+  }
+
 
  //sort notes in ascending date
  //get today/tomorrow
-
-
 
 
 
@@ -45,20 +45,13 @@ export class Workspace{
     //noteVar.deleteNote()
     //Workspace.allNotes
   }
-
-
-
-  
-
- 
-  }
+}
 
 
 
 
 
   /*
-
 
   object{
   title

@@ -1,5 +1,5 @@
+import { isTomorrow } from "date-fns";
 import { Workspace} from "./createWorkspace";
-import { format, compareAsc, setDate, startOfTomorrow } from "date-fns";
 
 
 export class Note extends Workspace{
@@ -11,23 +11,25 @@ export class Note extends Workspace{
     this.dateCreated = Date();
     this.dueDate= ''
     this.priority = 2;
-    // this.dueDate = startOfTomorrow
     this.checked = false;
   }
-  // get userDueDate(){
-  //   return setDate || startOfTomorrow
-  // }
+  get userDueDate(){
+    if (this.dueDate != ''){
+      return this.dueDate
+    }
+  }
 
   set userDueDate(value){
     this.dueDate = new Date(value)
   }
+  //Workspace.allNotes[2].userDueDate = ('1908-3-14')
 
   checkedBool =()=> this.checked = !this.checked
-  //flip the checked boolean is what i think this does
+  //flip the checked boolean is what i KNOW this does
+
 
 
 }
-
 
 
 export const testNote =()=>{
@@ -37,11 +39,11 @@ export const testNote =()=>{
     prompt('Note Title'), 
     prompt('description'), 
   )
-  noteForm.label = prompt('Label') || 'default'
+  noteForm.label = prompt('Label')  || 'default'
   //a button can be added to add to the Label itself
   //use a form for the note things perhaps
 
-  noteForm.dueDate = '1992-3-3'
+  noteForm.userDueDate = ('1992-3-3') 
 
 
   return noteForm
