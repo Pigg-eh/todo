@@ -9,7 +9,7 @@ div{
   
 body{
   display: grid;
-  grid-template:auto / auto auto auto;
+  grid-template:auto / 1fr 1fr 1fr;
   background-color: gray;
   justify-content: space-between;
 }
@@ -21,8 +21,25 @@ body{
     border: 1px solid black;
   }
 
-  .nav{
-  display: grid;
-  grid-template:auto auto/ auto;
+  nav{
+    display: flex;
+    flex-direction: column;
   }
+
+    button{
+      display: flex;
+      justify-self: flex-start;
+    }
+
+    
+    /* Workspaces */
+    div.title{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .icon{
+      height: 20px;
+    }
+
 

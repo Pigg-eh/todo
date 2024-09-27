@@ -1,42 +1,28 @@
 import './style.css';
-
-import {UserInterface} from './ui'
-
-
-
-  document.body.appendChild(UserInterface.testMakeNote());
-  document.body.appendChild(UserInterface.testLOGGER());
-
-
-  // function test() {
-
-  //   const button = document.createElement('button');
-    
-  //   button.textContent = ''
-  //   button.addEventListener("click", check);
-
-  
-
-  //   function check(){
-  //     Workspace.allNotes[2].userDueDate = ('1908-3-14')
-  //   } 
-    
-  //   return button;
-  // }
- // document.body.appendChild(test());
+import {UserInterface, TestToolkit} from './ui'
+import Icon from './img/plus-box.svg'
 
 
 
 
-  
- 
-
- /*
--
 
 
 
 
+
+
+
+  const plusIcon = new Image()
+  plusIcon.src = Icon
+  const element = document.querySelector('div.title')
+  plusIcon.classList.add('icon')
+  element.appendChild(plusIcon)
+
+
+document.body.appendChild(TestToolkit.testMakeNote());
+document.body.appendChild(TestToolkit.testLOGGER());
+
+/*
 [X]View all projects.
 [X]View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
 []Expand a single todo to see/edit its details.
@@ -45,4 +31,4 @@ import {UserInterface} from './ui'
 note: 
 **refactor or delete components later**
 **refactor how workspaces are made in logic
-  */
+*/

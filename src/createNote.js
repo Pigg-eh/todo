@@ -25,7 +25,6 @@ export class Note extends Workspace{
   //Workspace.allNotes[2].userDueDate = ('1908-3-14')
 
   checkedBool =()=> this.checked = !this.checked
-  //flip the checked boolean is what i KNOW this does
 
 
 

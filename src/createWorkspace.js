@@ -29,7 +29,7 @@ export class Workspace{
 
   static getTimeline(dateInput){
     return Workspace.allNotes.filter((note)=>isEqual(note.dueDate, new Date(dateInput)));
-    // /Workspace.getTimeline(date)
+    // /Workspace.getTimeline('datestring')
   }
 
 
