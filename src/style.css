@@ -9,16 +9,17 @@ div{
   
 body{
   display: grid;
-  grid-template:auto / 1fr 1fr 1fr;
+  grid-template:auto / auto auto auto;
   background-color: gray;
-  justify-content: space-between;
+  justify-content:space-between
 }
 
 .block {
     background-color: #FFAAEE;
     height: 95vh;
-    width: 30vw;
+    width: 21vw;
     border: 1px solid black;
+    border-radius: 10px;
   }
 
   nav{
@@ -33,7 +34,7 @@ body{
 
     
     /* Workspaces */
-    div.title{
+    div.ws-title{
       display: flex;
       justify-content: space-between;
     }
@@ -42,4 +43,7 @@ body{
       height: 20px;
     }
 
+  body>.info{
+    width: 54vw;
+  }
 

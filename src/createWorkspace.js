@@ -10,7 +10,6 @@ export class Workspace{
     this.color = color;
 
 
-
     if(this instanceof Note){
       Workspace.allNotes.push(this);
     }
@@ -20,21 +19,16 @@ export class Workspace{
     }
 
   }
-  
+    
   static getWorkspace(selectedLabel){
     return Workspace.allNotes.filter((note) => note.label === selectedLabel);
     //Workspace.getWorkspace(label)
-    // []View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
   }
 
   static getTimeline(dateInput){
     return Workspace.allNotes.filter((note)=>isEqual(note.dueDate, new Date(dateInput)));
-    // /Workspace.getTimeline('datestring')
+    // Workspace.getTimeline('datestring')
   }
-
-
- //sort notes in ascending date
- //get today/tomorrow
 
 
 
@@ -48,17 +42,3 @@ export class Workspace{
 }
 
 
-
-
-
-  /*
-
-  object{
-  title
-  description
-  dueDate 
-  priority
-  label 
-  checked
-}
-  */

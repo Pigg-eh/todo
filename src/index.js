@@ -1,34 +1,22 @@
 import './style.css';
-import {UserInterface, TestToolkit} from './ui'
-import Icon from './img/plus-box.svg'
+import {loadUserInterface, TestToolkit} from './ui'
+import {homeLoader} from './loader.js'
+
+// homeLoader()
+loadUserInterface()
 
 
 
 
-
-
-
-
-
-
-
-  const plusIcon = new Image()
-  plusIcon.src = Icon
-  const element = document.querySelector('div.title')
-  plusIcon.classList.add('icon')
-  element.appendChild(plusIcon)
 
 
 document.body.appendChild(TestToolkit.testMakeNote());
 document.body.appendChild(TestToolkit.testLOGGER());
 
 /*
-[X]View all projects.
-[X]View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
-[]Expand a single todo to see/edit its details.
-[X]Delete a todo. **
+
 
 note: 
 **refactor or delete components later**
-**refactor how workspaces are made in logic
+**make sure workspaces run the filter function to renew them after every change
 */

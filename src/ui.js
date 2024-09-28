@@ -1,24 +1,66 @@
 import { Note, testNote} from './createNote';
 import { Workspace} from './createWorkspace';
-import { isToday } from 'date-fns';
+import {homeLoader} from './loader.js'
+import { isToday, isThisWeek } from 'date-fns';
 // import Icon from './img/plus.svg'
 
-export class UserInterface{
+homeLoader()
+export function loadUserInterface(){
 
-  static navLoader(){
-    
-  }
+  addListeners()
+  function addListeners(){
+     
+    function clearTab(){
+        let contentChildren = document.querySelectorAll('div#nav-content > *')
+        
+        contentChildren.forEach((node) => {
+            node.remove()
+            
+        })
+    }
 
-  static WorkspaceInfoLoader(){
+    let buttons = document.querySelectorAll('nav button')
+    buttons.forEach(button => {
+        
+        button.addEventListener('click', (e) =>{
+          clearTab()
 
-  }
-
-  static NoteInfoLoader(){
-
-  }
-
-      
+            let pulledStr = e.target.getAttribute('data-selector')
+            
+            switch(pulledStr) {
+                case 'all-notes':
+                    insertNoteTitle(Workspace.allNotes)
+                    // console.log(Workspace.allNotes)
+                    break;
+                case 'daily':
+                    console.log(Workspace.getTimeline(isToday))
+                    insertNoteTitle(Workspace.getTimeline(isToday))
+                    break;
+                case 'weekly':
+                    insertNoteTitle(Workspace.getTimeline(isThisWeek))
+                    break;
+            }
+           
+        }) 
+    });
 }
+  
+function insertNoteTitle(array){
+  const selector = document.querySelector('div#nav-content');
+  
+  array.forEach((item) => {
+    const button = document.createElement('button')
+    button.textContent = item.title
+    button.classList.add(item.title)
+    selector.appendChild(button)
+  });
+  return array
+  
+}
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export class TestToolkit{
   static testMakeNote() {
@@ -44,7 +86,8 @@ static testLOGGER() {
     const helloNote2 = new Note('hello2', 'description',  'helloLabel')
     const helloNote3 = new Note('hello3', 'description', 'helloLabel2')
     const helloNote4 = new Note('hello4', 'deleted one is I', 'helloLabel2')
-    helloNote2.userDueDate = '1992-3-3'
+    helloNote2.userDueDate = new Date()
+    helloNote3.userDueDate = new Date()
     const ws1 = new Workspace('testing')
     const ws2 = new Workspace('testing2')
 
@@ -84,6 +127,10 @@ static testLOGGER() {
 []refresh? refreshAll()
 []
     
+[]View all projects.
+[]View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
+[]Expand a single todo to see/edit its details.
+[]Delete a todo. **
 */
 
 
