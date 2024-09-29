@@ -1,5 +1,5 @@
 import { Note } from "./createNote";
-import { compareAsc, isEqual} from "date-fns";
+import { compareAsc, isToday, isThisWeek} from "date-fns";
 
 export class Workspace{
   static allNotes = []
@@ -19,17 +19,23 @@ export class Workspace{
     }
 
   }
-    
+
+
+
   static getWorkspace(selectedLabel){
     return Workspace.allNotes.filter((note) => note.label === selectedLabel);
     //Workspace.getWorkspace(label)
   }
 
-  static getTimeline(dateInput){
-    return Workspace.allNotes.filter((note)=>isEqual(note.dueDate, new Date(dateInput)));
+  static checkDay(dateInput){
+    return Workspace.allNotes.filter((note)=>isToday(note.dueDate, dateInput));
     // Workspace.getTimeline('datestring')
   }
 
+  static checkWeek(dateInput){
+    return Workspace.allNotes.filter((note)=>isThisWeek(note.dueDate, dateInput));
+    // Workspace.getTimeline('datestring')
+  }
 
 
   deleteNote(){

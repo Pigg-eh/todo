@@ -33,11 +33,10 @@ export function loadUserInterface(){
                     // console.log(Workspace.allNotes)
                     break;
                 case 'daily':
-                    console.log(Workspace.getTimeline(isToday))
-                    insertNoteTitle(Workspace.getTimeline(isToday))
+                    insertNoteTitle(Workspace.checkDay(isToday))
                     break;
                 case 'weekly':
-                    insertNoteTitle(Workspace.getTimeline(isThisWeek))
+                    insertNoteTitle(Workspace.checkWeek(isThisWeek))
                     break;
             }
            
@@ -97,7 +96,6 @@ static testLOGGER() {
 
       console.log('date check')
       // console.log(Workspace.allNotes[4].userDueDate)
-      console.log(Workspace.getTimeline('1992-3-3'))
 
     } 
     
