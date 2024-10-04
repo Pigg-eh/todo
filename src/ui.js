@@ -2,13 +2,12 @@ import { Note, testNote} from './createNote';
 import { Workspace} from './createWorkspace';
 import {homeLoader} from './loader.js'
 import { isToday, isThisWeek } from 'date-fns';
-// import Icon from './img/plus.svg'
 
 homeLoader()
 export function loadUserInterface(){
 
-  addListeners()
-  function addListeners(){
+  addNavListeners()
+  function addNavListeners(){
      
     function clearTab(){
         let contentChildren = document.querySelectorAll('div#nav-content > *')
@@ -22,24 +21,25 @@ export function loadUserInterface(){
     let buttons = document.querySelectorAll('nav button')
     buttons.forEach(button => {
         
-        button.addEventListener('click', (e) =>{
-          clearTab()
+      button.addEventListener('click', (e) =>{
+        clearTab()
 
-            let pulledStr = e.target.getAttribute('data-selector')
-            
-            switch(pulledStr) {
-                case 'all-notes':
-                    insertNoteTitle(Workspace.allNotes)
-                    // console.log(Workspace.allNotes)
-                    break;
-                case 'daily':
-                    insertNoteTitle(Workspace.checkDay(isToday))
-                    break;
-                case 'weekly':
-                    insertNoteTitle(Workspace.checkWeek(isThisWeek))
-                    break;
-            }
-           
+        let pulledStr = e.target.getAttribute('data-selector')
+
+        switch(pulledStr) {
+            case 'all-notes':
+                insertNoteTitle(Workspace.allNotes)
+                // console.log(Workspace.allNotes)
+                break;
+            case 'daily':
+                insertNoteTitle(Workspace.checkDay(isToday))
+                break;
+            case 'weekly':
+                insertNoteTitle(Workspace.checkWeek(isThisWeek))
+                break;
+        
+          }
+          
         }) 
     });
 }
@@ -50,11 +50,29 @@ function insertNoteTitle(array){
   array.forEach((item) => {
     const button = document.createElement('button')
     button.textContent = item.title
-    button.classList.add(item.title)
+    // button.classList.add(item.title)
+    button.setAttribute('data-selector', item.title)
+    button.classList.add('note-btn')
     selector.appendChild(button)
+    button.addEventListener('click', (e) =>drawNoteUI(e.target))
+    //may need to remove listener
   });
+  
   return array
   
+}
+
+
+function drawNoteUI(array){
+  const content = document.querySelector('.info>#content')
+  
+  
+
+  const title = array.getAttribute('data-selector')
+  content.textContent = `title: ${title}`
+
+
+  // Workspece.allnotes.indexOf(e.target.)
 }
 
 }
@@ -62,17 +80,7 @@ function insertNoteTitle(array){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export class TestToolkit{
-  static testMakeNote() {
-  
-    const button = document.createElement('button');
- 
-    button.textContent = `New Note`
-    button.classList.add('hello');
-    button.addEventListener("click", testNote);
-    
 
-    return button;
-  }
 
 static testLOGGER() {
 
@@ -96,7 +104,8 @@ static testLOGGER() {
 
       console.log('date check')
       // console.log(Workspace.allNotes[4].userDueDate)
-
+      
+      Workspace.allNotes[0].userDueDate = ('2024-10-01')
     } 
     
     return button;
@@ -105,19 +114,12 @@ static testLOGGER() {
 }
 
     
-    // []workspace ui loadMenu()
-    //     -daily/weekly/all
-    //     -user created workspaces
-    
-    
 /*
 []load in homepage/startpoint loadHome()
     []workspace ui loadMenu()
-        -daily/weekly/all
-        -user created workspaces
-
+      [X]daily/weekly/all
+      []user created workspaces
     []List of notes in selected workspace loadWorkspace()
-
     []display single Note info loadNotes()
 
 []clear element clearElement()

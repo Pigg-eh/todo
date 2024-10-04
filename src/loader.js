@@ -10,10 +10,18 @@ export function homeLoader(){
 
     plusIcon.addEventListener("click", testNote);
 
+    //User WorkSpaces
+    const userWsSelector = document.querySelector('user-ws-content')
+    //add workspace buttons
+    //display button labels in middle nav
+    //Workspace.getWorkspace(label)
 
+    function pullString(node){
+
+    }
 
     function navLoader(){
-    
+        
     }
   
     function WorkspaceInfoLoader(){
