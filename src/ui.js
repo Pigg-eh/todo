@@ -54,7 +54,7 @@ function insertNoteTitle(array){
     button.setAttribute('data-selector', item.title)
     button.classList.add('note-btn')
     selector.appendChild(button)
-    button.addEventListener('click', (e) =>drawNoteUI(e.target))
+    button.addEventListener('click', (e) =>getNoteInfo(e.target))
     //may need to remove listener
   });
   
@@ -63,16 +63,14 @@ function insertNoteTitle(array){
 }
 
 
-function drawNoteUI(array){
+function getNoteInfo(pulledStr){
   const content = document.querySelector('.info>#content')
   
+  const string = pulledStr.getAttribute('data-selector')
   
+  const foundObj = Workspace.allNotes.find((item) => item.title === string)
 
-  const title = array.getAttribute('data-selector')
-  content.textContent = `title: ${title}`
-
-
-  // Workspece.allnotes.indexOf(e.target.)
+  content.textContent = `whole note: ${foundObj.userDueDate}`
 }
 
 }
@@ -128,9 +126,10 @@ static testLOGGER() {
 []
     
 []View all projects.
-[]View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
+[]View all todos in each project (probably just the title and duedate… perhaps changing color indicator for different priorities).
 []Expand a single todo to see/edit its details.
 []Delete a todo. **
+[]check functionality 
 */
 
 
