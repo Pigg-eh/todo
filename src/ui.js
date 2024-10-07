@@ -9,20 +9,20 @@ export function loadUserInterface(){
   addNavListeners()
   function addNavListeners(){
      
-    function clearTab(){
-        let contentChildren = document.querySelectorAll('div#nav-content > *')
+    // function clearTab(selector){
+    //     let contentChildren = document.querySelectorAll(selector)
         
-        contentChildren.forEach((node) => {
-            node.remove()
+    //     contentChildren.forEach((node) => {
+    //         node.remove()
             
-        })
-    }
+    //     })
+    // }
 
     let buttons = document.querySelectorAll('nav button')
     buttons.forEach(button => {
         
       button.addEventListener('click', (e) =>{
-        clearTab()
+        clearTab('div#nav-content > *')
 
         let pulledStr = e.target.getAttribute('data-selector')
 
@@ -48,13 +48,20 @@ function insertNoteTitle(array){
   const selector = document.querySelector('div#nav-content');
   
   array.forEach((item) => {
+    
     const button = document.createElement('button')
     button.textContent = item.title
     // button.classList.add(item.title)
     button.setAttribute('data-selector', item.title)
     button.classList.add('note-btn')
     selector.appendChild(button)
-    button.addEventListener('click', (e) =>getNoteInfo(e.target))
+    
+    button.addEventListener('click', (e) =>{
+      clearTab('#content > *')
+      getNoteInfo(e.target)
+    
+    })
+      
     //may need to remove listener
   });
   
@@ -63,14 +70,40 @@ function insertNoteTitle(array){
 }
 
 
-function getNoteInfo(pulledStr){
-  const content = document.querySelector('.info>#content')
+function getNoteInfo(pulledStr){ //i dont know if this should be moved to data manipulation
+  // const content = document.querySelector('.info>#content')
   
   const string = pulledStr.getAttribute('data-selector')
-  
   const foundObj = Workspace.allNotes.find((item) => item.title === string)
 
-  content.textContent = `whole note: ${foundObj.userDueDate}`
+  // content.textContent = `whole note: ${foundObj.userDueDate}`
+
+  drawNoteUI(foundObj)
+}
+
+function drawNoteUI(node){
+  const content = document.querySelector('.info>#content')
+  const container= document.createElement('div')
+  container.classList.add('note-container')
+  const title = document.createElement('div')
+  title.classList.add('note-title')
+  const main = document.createElement('div')
+  main.classList.add('note-main')
+  content.append(container)
+  container.append(title, main)
+
+  title.textContent = node.title
+  main.textContent = node.description
+}
+
+
+function clearTab(selector){
+  let contentChildren = document.querySelectorAll(selector)
+  
+  contentChildren.forEach((node) => {
+      node.remove()
+      
+  })
 }
 
 }
