@@ -7,7 +7,7 @@ export class Note extends Workspace{
     super(label);
     this.title = title;
     this.description = description;
-    this.dateCreated = Date();
+    // this.dateCreated = Date();
     this.dueDate= ''
     this.priority = 2;
     this.checked = false;
