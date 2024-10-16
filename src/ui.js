@@ -29,7 +29,7 @@ export function loadUserInterface(){
             case 'weekly':
                 insertNoteTitle(Workspace.checkWeek(isThisWeek))
                 break;
-        
+            //add new case for workspaces
           }
           
         }) 
@@ -61,12 +61,15 @@ function insertNoteTitle(array){
   
 }
 
+function drawAddNoteForm(){
+  
+}
+
 
 function getNoteInfo(pulledStr){ 
   
   const string = pulledStr.getAttribute('data-selector')
   const foundObj = Workspace.allNotes.find((item) => item.title === string)
-  //delete button function probably starts here
   drawNoteUI(foundObj)
 }
 
@@ -79,15 +82,20 @@ function drawNoteUI(node){
   const checkbox = document.createElement('input');
   drawCheckbox()
   checkbox.defaultChecked = node.checked
-  checkbox.addEventListener('click',node.checkedBool)
+  checkbox.addEventListener('click', () =>  {
+    node.checkedBool()
+    clearTab('#content > *')
+    drawNoteUI(node)
+  })
 
   const main = document.createElement('div')
   main.classList.add('note-main')
   const dueDate = document.createElement('div')
   dueDate.classList.add('dueDate')
+
+  //probably needs to be changed into a radio button
   const priority = document.createElement('div')
   priority.style.backgroundColor = priorityColor(node.priority)
-  //probably could have made an array lol
 
   const deleteBtn = document.createElement('button')
   deleteBtn.classList.add('delete')
@@ -100,13 +108,12 @@ function drawNoteUI(node){
   
   content.append(container)
   container.append(title, main, dueDate, priority, deleteBtn)
-    //add more divs to accomodate other bits of the note
-    //checkbox for the prio
+    //radio for the prio
     
   title.textContent = node.title
   main.textContent = node.description
   dueDate.textContent = node.dueDate
-  priority.textContent = 'prio'
+  priority.textContent = 'Priority'
   deleteBtn.textContent = 'delete'
 
   function drawCheckbox(){
@@ -138,10 +145,8 @@ function priorityColor(priority){
   switch(priority) {
     case 0:
       return  'red';
-      break;
     case 1:
       return 'yellow';
-      break;
     case 2:
       return 'green';
   }
@@ -184,7 +189,7 @@ static testLOGGER() {
       console.log('date check')
       // console.log(Workspace.allNotes[4].userDueDate)
       
-      Workspace.allNotes[0].userDueDate = ('2024-10-01')
+      Workspace.allNotes[0].userDueDate = ('2024-10-11')
     } 
     
     return button;
@@ -194,23 +199,22 @@ static testLOGGER() {
 
     
 /*
-[]load in homepage/startpoint loadHome()
-    []workspace ui loadMenu()
+[X]load in homepage/startpoint loadHome()
+    [X]workspace ui loadMenu()
       [X]daily/weekly/all
       []user created workspaces
     []List of notes in selected workspace loadWorkspace()
-    []display single Note info loadNotes()
+    [X]display single Note info loadNotes()
 
 [X]clear element clearElement()
 [X]insert element insertELement()
 []refresh? refreshAll()
-[]
     
-[]View all projects.
-[]View all todos in each project (probably just the title and duedate… perhaps changing color indicator for different priorities).
-[]Expand a single todo to see/edit its details.
-[]Delete a todo. **
-[]check functionality 
+[]View all workspaces.
+[]View all todos in each workspace (probably just the title and duedate… perhaps changing color indicator for different priorities).
+[]Expand a single todo to edit its details.
+[X]Delete a todo. **
+[X]check functionality 
 */
 
 
