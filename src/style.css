@@ -29,7 +29,7 @@ body{
     }
     
     /* Workspaces */
-    div.ws-title{
+    div.username, div.ws-title{
       display: flex;
       justify-content: space-between;
     }
@@ -41,4 +41,9 @@ body{
   body>.info{
     width: 54vw;
   }
+
+  div.form-container {
+    visibility: hidden;
+    height: 0
+   }
 

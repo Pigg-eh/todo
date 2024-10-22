@@ -7,6 +7,33 @@
 <body>
     <div class="nav block">
         <div class="username">User-Name-Placeholder</div>
+
+        <div onsubmit="getUserInput(event)" class="form-container">
+            <form id="userNote" action="" method="get">
+                <br><label for="title">Title:</label>
+                <br><input type="text" name="title" id="title" placeholder="Brush Teeth">
+                <br> <label for="description">Description</label>
+                <br><textarea id="description" name="description" rows="3" cols="auto" placeholder="Don't forget to floss"></textarea>
+                <!-- limit resize-->
+                <br><label for="workspace">Workspace:</label>
+                <br><select id="priority" name="priority">
+                    <option value="workspace">workspace</option>
+                    
+                </select>
+
+                <br><label for="date">Date:</label>
+                <br><input type="text" name="date" id="date" placeholder="October 10, 2024">
+                <br><label for="priority">Priority:</label>
+                <br><select id="priority" name="priority">
+                    <option value="2">Low</option>
+                    <option value="1">Medium</option>
+                    <option value="0">High</option>
+                  </select>
+                <br><input class="userInput" type="submit" value="Submit" >
+            </form>
+        </div>
+        <!--EDIT FORM -->
+
         <div class="nav-child fixed-workspaces">
             <nav class="workspace-nav">
                 <button data-selector="all-notes">All Notes</button>

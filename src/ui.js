@@ -30,6 +30,7 @@ export function loadUserInterface(){
                 insertNoteTitle(Workspace.checkWeek(isThisWeek))
                 break;
             //add new case for workspaces
+            
           }
           
         }) 
@@ -62,7 +63,7 @@ function insertNoteTitle(array){
 }
 
 function drawAddNoteForm(){
-  
+  const selector = document.querySelector
 }
 
 
@@ -132,31 +133,31 @@ function drawNoteUI(node){
   }
 }
 
-function checkedState(state) {
-      if (!state){
-        return 'not finished'
-      }else {
-        return 'finshed'
-      }
-}
-
-
-function priorityColor(priority){
-  switch(priority) {
-    case 0:
-      return  'red';
-    case 1:
-      return 'yellow';
-    case 2:
-      return 'green';
+  function checkedState(state) {
+        if (!state){
+          return 'not finished'
+        }else {
+          return 'finshed'
+        }
   }
-}
 
-function clearTab(selector){
-  let contentChildren = document.querySelectorAll(selector)
-  
-  contentChildren.forEach(node => node.remove())
-}
+
+  function priorityColor(priority){
+    switch(priority) {
+      case 0:
+        return  'red';
+      case 1:
+        return 'yellow';
+      case 2:
+        return 'green';
+    }
+  }
+
+  function clearTab(selector){
+    let contentChildren = document.querySelectorAll(selector)
+    
+    contentChildren.forEach(node => node.remove())
+  }
 
 }
 
@@ -208,7 +209,7 @@ static testLOGGER() {
 
 [X]clear element clearElement()
 [X]insert element insertELement()
-[]refresh? refreshAll()
+[X]refresh? refreshAll() //maybe refactor but might be unneccessarry 
     
 []View all workspaces.
 []View all todos in each workspace (probably just the title and duedate… perhaps changing color indicator for different priorities).
