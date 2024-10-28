@@ -1,10 +1,10 @@
 import './style.css';
 import {loadUserInterface, TestToolkit} from './ui'
-import {homeLoader} from './loader.js'
+// import {formLoader} from './loader.js'
 
-// homeLoader()
+
 loadUserInterface()
-
+// formLoader()
 
 
 

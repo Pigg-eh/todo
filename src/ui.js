@@ -1,9 +1,8 @@
 import { Note, testNote} from './createNote';
 import { Workspace} from './createWorkspace';
-import {homeLoader} from './loader.js'
 import { isToday, isThisWeek } from 'date-fns';
+import Icon from './img/plus-box.svg'
 
-homeLoader()
 export function loadUserInterface(){
 
   addNavListeners()
@@ -60,10 +59,6 @@ function insertNoteTitle(array){
   
   return array
   
-}
-
-function drawAddNoteForm(){
-  const selector = document.querySelector
 }
 
 
@@ -159,6 +154,87 @@ function drawNoteUI(node){
     contentChildren.forEach(node => node.remove())
   }
 
+  //FORM RELATED LOGIC
+
+  formLoader()
+  function formLoader(){
+    const plusIcon = new Image()
+    plusIcon.src = Icon
+    const elementAddNote = document.querySelector('div.username')
+    plusIcon.classList.add('icon')
+    plusIcon.setAttribute('title','Add a new note')
+    elementAddNote.appendChild(plusIcon)
+
+    const plusIconWs = new Image()
+    plusIconWs.src = Icon
+    const elementAddWs = document.querySelector('div.ws-title')
+    plusIconWs.classList.add('icon')
+    plusIconWs.setAttribute('title','Add a new Workspace')
+    elementAddWs.appendChild(plusIconWs)
+
+    plusIcon.addEventListener("click", () => toggleForm('.form-container')); 
+    plusIconWs.addEventListener("click", () => toggleForm('.ws-form-container'));
+
+    //User WorkSpaces
+    //add workspace buttons
+    //display button labels in middle nav
+    //Workspace.getWorkspace(label)
+
+    addSubmitListener('userNote')
+    addSubmitListener('userWorkspace')
+    function addSubmitListener(node){
+      document.getElementById(node).addEventListener("submit", (e) => {
+        getUserInput(e)
+        clearTab('div#nav-content > *')
+        insertNoteTitle(Workspace.allNotes)
+
+        //PAGE KEEPS RELOADING
+        //////LEARNINGS: Fixed by targetting the fucking form rather than the button//////
+      }, true)
+    }
+
+    function toggleForm(node) {
+        let form = document.querySelector(node)
+        
+        const formVisibility = window.getComputedStyle(form).visibility; 
+    
+          if (formVisibility === 'hidden') { 
+            form.style.visibility = 'visible'; 
+            form.style.height = 'auto'
+        } else { 
+            form.style.visibility = 'hidden'; 
+            form.style.height = 0
+        } 
+      } 
+
+
+      function getUserInput(event){ 
+        event.preventDefault()
+        let titleValue= document.getElementById('title').value;
+        let descriptionValue= document.getElementById('description').value;
+        let workspaceValue= document.getElementById('workspace').value;
+        let dateValue= document.getElementById('date').value;
+        let priorityValue= document.getElementById('priority').value;
+
+        callNote(titleValue, descriptionValue, workspaceValue, dateValue, priorityValue)
+
+        // event.preventDefault()
+        //add to DOM
+        
+      }
+
+      function callNote(title, description, workspace, date = Date(), priority, currentNote){
+        currentNote = new Note(title, description)
+        currentNote.label = workspace
+        currentNote.userDueDate = date
+        currentNote.priority=priority
+
+        return currentNote  
+      }
+
+
+  }
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -176,7 +252,6 @@ static testLOGGER() {
     const helloNote = new Note('hello', 'description', 'helloLabel')
     const helloNote2 = new Note('hello2', 'description',  'helloLabel')
     const helloNote3 = new Note('hello3', 'description', 'helloLabel2')
-    const helloNote4 = new Note('hello4', 'deleted one is I', 'helloLabel2')
     helloNote2.priority = 1
     helloNote2.userDueDate = new Date()
     helloNote3.userDueDate = new Date()

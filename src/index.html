@@ -8,7 +8,8 @@
     <div class="nav block">
         <div class="username">User-Name-Placeholder</div>
 
-        <div onsubmit="getUserInput(event)" class="form-container">
+        <div class="form-container">
+            
             <form id="userNote" action="" method="get">
                 <br><label for="title">Title:</label>
                 <br><input type="text" name="title" id="title" placeholder="Brush Teeth">
@@ -16,8 +17,8 @@
                 <br><textarea id="description" name="description" rows="3" cols="auto" placeholder="Don't forget to floss"></textarea>
                 <!-- limit resize-->
                 <br><label for="workspace">Workspace:</label>
-                <br><select id="priority" name="priority">
-                    <option value="workspace">workspace</option>
+                <br><select id="workspace" name="workspace">
+                    <option id="ws-option"value="ws-option" >workspace</option>
                     
                 </select>
 
@@ -29,7 +30,7 @@
                     <option value="1">Medium</option>
                     <option value="0">High</option>
                   </select>
-                <br><input class="userInput" type="submit" value="Submit" >
+                <br><input class="userNoteInput" type="submit" value="Submit" >
             </form>
         </div>
         <!--EDIT FORM -->
@@ -46,6 +47,16 @@
             <div class="ws-title">
                 <div>Workspaces</div>
             </div>
+
+            <div class="ws-form-container">
+                <form id="userWorkspace" action="" method="get">
+                    <label for="add-ws">
+                        <input type="text" name="add-ws" id="add-ws" placeholder="Daily Chores">
+                        <input class="userWSInput" type="submit" value="Add Workspace" >
+                    </label>
+                </form>
+            </div>
+            
             <div id="user-ws-content"></div>
         </nav>
        

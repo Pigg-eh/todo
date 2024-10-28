@@ -42,7 +42,7 @@ body{
     width: 54vw;
   }
 
-  div.form-container {
+  div.form-container, div.ws-form-container {
     visibility: hidden;
     height: 0
    }
