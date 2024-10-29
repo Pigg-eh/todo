@@ -86,12 +86,16 @@ function drawNoteUI(node){
 
   const main = document.createElement('div')
   main.classList.add('note-main')
+
   const dueDate = document.createElement('div')
-  dueDate.classList.add('dueDate')
+  
+
+  const workspace = document.createElement('div')
+  workspace.classList.add('workspace')
 
   //probably needs to be changed into a radio button
   const priority = document.createElement('div')
-  priority.style.backgroundColor = priorityColor(node.priority)
+  priority.style.backgroundColor = priorityColor(node.priority) 
 
   const deleteBtn = document.createElement('button')
   deleteBtn.classList.add('delete')
@@ -103,7 +107,7 @@ function drawNoteUI(node){
   })
   
   content.append(container)
-  container.append(title, main, dueDate, priority, deleteBtn)
+  container.append(title, workspace, main, dueDate, priority, deleteBtn)
     //radio for the prio
     
   title.textContent = node.title
@@ -111,6 +115,7 @@ function drawNoteUI(node){
   dueDate.textContent = node.dueDate
   priority.textContent = 'Priority'
   deleteBtn.textContent = 'delete'
+  workspace.textContent = node.label
 
   function drawCheckbox(){
     document.createElement('input')
@@ -137,10 +142,10 @@ function drawNoteUI(node){
   }
 
 
-  function priorityColor(priority){
-    switch(priority) {
+  function priorityColor(value){
+    switch(value) {
       case 0:
-        return  'red';
+        return 'red';
       case 1:
         return 'yellow';
       case 2:
@@ -185,6 +190,9 @@ function drawNoteUI(node){
     function addSubmitListener(node){
       document.getElementById(node).addEventListener("submit", (e) => {
         getUserInput(e)
+        let currentForm = document.getElementById(node)
+        currentForm.reset()
+        // toggleForm(node)
         clearTab('div#nav-content > *')
         insertNoteTitle(Workspace.allNotes)
 
@@ -214,7 +222,7 @@ function drawNoteUI(node){
         let descriptionValue= document.getElementById('description').value;
         let workspaceValue= document.getElementById('workspace').value;
         let dateValue= document.getElementById('date').value;
-        let priorityValue= document.getElementById('priority').value;
+        let priorityValue= +(document.getElementById('priority').value);
 
         callNote(titleValue, descriptionValue, workspaceValue, dateValue, priorityValue)
 
@@ -250,8 +258,8 @@ static testLOGGER() {
     button.addEventListener("click", LOGConsole);
 
     const helloNote = new Note('hello', 'description', 'helloLabel')
-    const helloNote2 = new Note('hello2', 'description',  'helloLabel')
-    const helloNote3 = new Note('hello3', 'description', 'helloLabel2')
+    const helloNote2 = new Note('hello2', 'description',  'helloLabel2')
+    const helloNote3 = new Note('hello3', 'description', 'helloLabel3')
     helloNote2.priority = 1
     helloNote2.userDueDate = new Date()
     helloNote3.userDueDate = new Date()
