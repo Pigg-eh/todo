@@ -19,14 +19,17 @@ export function loadUserInterface(){
 
         switch(pulledStr) {
             case 'all-notes':
-                insertNoteTitle(Workspace.allNotes)
+                clearTab('div#content > *')
+                insertNoteTitle(Workspace.allNotes, 'div#nav-content', '#content > *')
                 // console.log(Workspace.allNotes)
                 break;
             case 'daily':
-                insertNoteTitle(Workspace.checkDay(isToday))
+                clearTab('div#content > *')
+                insertNoteTitle(Workspace.checkDay(isToday), 'div#nav-content', '#content > *')
                 break;
             case 'weekly':
-                insertNoteTitle(Workspace.checkWeek(isThisWeek))
+                clearTab('div#content > *')
+                insertNoteTitle(Workspace.checkWeek(isThisWeek), 'div#nav-content', '#content > *') 
                 break;
             //add new case for workspaces
             
@@ -35,26 +38,25 @@ export function loadUserInterface(){
         }) 
     });
 }
+
   
-function insertNoteTitle(array){
-  const selector = document.querySelector('div#nav-content');
+function insertNoteTitle(array, node, container){
+  const selector = document.querySelector(node);
   
   array.forEach((item) => {
     
     const button = document.createElement('button')
     button.textContent = item.title
-    // button.classList.add(item.title)
     button.setAttribute('data-selector', item.title)
     button.classList.add('note-btn')
     selector.appendChild(button)
     
     button.addEventListener('click', (e) =>{
-      clearTab('#content > *')
+      clearTab(container)
       getNoteInfo(e.target)
     
     })
       
-    //may need to remove listener
   });
   
   return array
@@ -67,6 +69,38 @@ function getNoteInfo(pulledStr){
   const string = pulledStr.getAttribute('data-selector')
   const foundObj = Workspace.allNotes.find((item) => item.title === string)
   drawNoteUI(foundObj)
+}
+
+function insertWSTitle(array,node, container){
+  const selector = document.querySelector(node);
+
+  array.forEach((item) => {
+    
+    const button = document.createElement('button')
+    button.textContent = item.label
+    button.setAttribute('data-selector', item.label)
+    button.classList.add('ws-btn')
+    selector.appendChild(button)
+    
+    button.addEventListener('click', (e) =>{
+      clearTab(container)
+      getWSInfo(e.target)
+      //Workspace.getWorkspace(label)
+    })
+      
+  });
+  
+  return array
+}
+
+
+function getWSInfo(pulledStr){ 
+  
+  const string = pulledStr.getAttribute('data-selector')
+  const foundObj = Workspace.allWorkspace.find((item) => item.label === string)
+  drawNoteUI(foundObj)
+
+  //i dont know whats going on anymore
 }
 
 function drawNoteUI(node){
@@ -102,7 +136,7 @@ function drawNoteUI(node){
   deleteBtn.addEventListener('click', () => {
     node.deleteNote()
     clearTab('div#nav-content > *')
-    clearTab('#content > *')
+    clearTab('div#content > *')
     alert(`${node.title} deleted!`)
   })
   
@@ -154,6 +188,7 @@ function drawNoteUI(node){
   }
 
   function clearTab(selector){
+    
     let contentChildren = document.querySelectorAll(selector)
     
     contentChildren.forEach(node => node.remove())
@@ -185,19 +220,29 @@ function drawNoteUI(node){
     //display button labels in middle nav
     //Workspace.getWorkspace(label)
 
-    addSubmitListener('userNote')
-    addSubmitListener('userWorkspace')
-    function addSubmitListener(node){
+    addSubmitListener('userNote', Workspace.allNotes)
+    addWSListener('userWorkspace', Workspace.allWorkspace)
+    function addSubmitListener(node, array){
       document.getElementById(node).addEventListener("submit", (e) => {
         getUserInput(e)
         let currentForm = document.getElementById(node)
         currentForm.reset()
-        // toggleForm(node)
-        clearTab('div#nav-content > *')
-        insertNoteTitle(Workspace.allNotes)
-
+        clearTab('div#nav-content > *') 
+        insertNoteTitle(array, 'div#nav-content','#content > *')
+       
         //PAGE KEEPS RELOADING
         //////LEARNINGS: Fixed by targetting the fucking form rather than the button//////
+      }, true)
+    }
+
+    function addWSListener(node, array){
+      document.getElementById(node).addEventListener("submit", (e) => {
+        getWSInput(e)
+        let currentForm = document.getElementById(node)
+        currentForm.reset()
+        clearTab('#user-ws-content > *')
+        insertWSTitle(array, '#user-ws-content','#content > *') 
+        
       }, true)
     }
 
@@ -231,6 +276,13 @@ function drawNoteUI(node){
         
       }
 
+      function getWSInput (event){
+        event.preventDefault()
+        let workspaceValue = document.getElementById('add-ws').value
+
+        callWS(workspaceValue)
+      }
+
       function callNote(title, description, workspace, date = Date(), priority, currentNote){
         currentNote = new Note(title, description)
         currentNote.label = workspace
@@ -240,6 +292,10 @@ function drawNoteUI(node){
         return currentNote  
       }
 
+      function callWS(title, currentWS){
+        currentWS = new Workspace(title)
+        return currentWS
+      }
 
   }
 
@@ -263,15 +319,14 @@ static testLOGGER() {
     helloNote2.priority = 1
     helloNote2.userDueDate = new Date()
     helloNote3.userDueDate = new Date()
-    const ws1 = new Workspace('testing')
-    const ws2 = new Workspace('testing2')
+    
 
     function LOGConsole(){
+      console.log('notes')
       console.table(Workspace.allNotes)
+      console.log('ws')
       console.table(Workspace.allWorkspace)
-
-      console.log('date check')
-      // console.log(Workspace.allNotes[4].userDueDate)
+      console.log(Workspace.getWorkspace("helloLabel"))
       
       Workspace.allNotes[0].userDueDate = ('2024-10-11')
     } 

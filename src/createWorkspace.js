@@ -6,7 +6,7 @@ export class Workspace{
   static allWorkspace = []
   
   constructor(label, color= 'black'){
-    this.label = label || 'default';
+    this.label = label || 'Default';
     this.color = color;
 
 
@@ -14,12 +14,14 @@ export class Workspace{
       Workspace.allNotes.push(this);
     }
 
-    if(this instanceof Note === false){
+    // if(this instanceof Workspace){
+    //   Workspace.allWorkspace.push(this);
+    // }
+
+    if(this instanceof Workspace){
       Workspace.allWorkspace.push(this);
     }
-
   }
-
 
 
   static getWorkspace(selectedLabel){

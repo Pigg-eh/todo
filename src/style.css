@@ -18,7 +18,7 @@ body{
     border-radius: 10px;
   }
 
-  #nav-content, nav{
+  #nav-content, nav, #user-ws-content{
     display: flex;
     flex-direction: column;
   }
