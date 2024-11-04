@@ -1,6 +1,6 @@
 import { Note, testNote} from './createNote';
 import { Workspace} from './createWorkspace';
-import { isToday, isThisWeek } from 'date-fns';
+import { isToday, isThisWeek, isExists } from 'date-fns';
 import Icon from './img/plus-box.svg'
 
 export function loadUserInterface(){
@@ -21,7 +21,6 @@ export function loadUserInterface(){
             case 'all-notes':
                 clearTab('div#content > *')
                 insertNoteTitle(Workspace.allNotes, 'div#nav-content', '#content > *')
-                // console.log(Workspace.allNotes)
                 break;
             case 'daily':
                 clearTab('div#content > *')
@@ -73,9 +72,8 @@ function getNoteInfo(pulledStr){
 
 function insertWSTitle(array,node, container){
   const selector = document.querySelector(node);
-
+  //change to reduce perhaps HERE ///////////////
   array.forEach((item) => {
-    
     const button = document.createElement('button')
     button.textContent = item.label
     button.setAttribute('data-selector', item.label)
@@ -83,12 +81,13 @@ function insertWSTitle(array,node, container){
     selector.appendChild(button)
     
     button.addEventListener('click', (e) =>{
+      clearTab('#nav-content > *')
       clearTab(container)
       getWSInfo(e.target)
-      //Workspace.getWorkspace(label)
+     
     })
-      
   });
+
   
   return array
 }
@@ -97,11 +96,13 @@ function insertWSTitle(array,node, container){
 function getWSInfo(pulledStr){ 
   
   const string = pulledStr.getAttribute('data-selector')
-  const foundObj = Workspace.allWorkspace.find((item) => item.label === string)
-  drawNoteUI(foundObj)
-
-  //i dont know whats going on anymore
+  let array = Workspace.getWorkspace(string)
+  //CLEAR HERE
+  insertNoteTitle(array, 'div#nav-content', '#content > *')
+ //Workspace.getWorkspace(item.label)
 }
+
+
 
 function drawNoteUI(node){
   const content = document.querySelector('.info>#content')
@@ -215,10 +216,6 @@ function drawNoteUI(node){
     plusIcon.addEventListener("click", () => toggleForm('.form-container')); 
     plusIconWs.addEventListener("click", () => toggleForm('.ws-form-container'));
 
-    //User WorkSpaces
-    //add workspace buttons
-    //display button labels in middle nav
-    //Workspace.getWorkspace(label)
 
     addSubmitListener('userNote', Workspace.allNotes)
     addWSListener('userWorkspace', Workspace.allWorkspace)
@@ -242,7 +239,6 @@ function drawNoteUI(node){
         currentForm.reset()
         clearTab('#user-ws-content > *')
         insertWSTitle(array, '#user-ws-content','#content > *') 
-        
       }, true)
     }
 
@@ -314,9 +310,9 @@ static testLOGGER() {
     button.addEventListener("click", LOGConsole);
 
     const helloNote = new Note('hello', 'description', 'helloLabel')
-    const helloNote2 = new Note('hello2', 'description',  'helloLabel2')
+    const helloNote2 = new Note('hello2', 'description',  'helloLabel')
     const helloNote3 = new Note('hello3', 'description', 'helloLabel3')
-    helloNote2.priority = 1
+    helloNote2.priority = 0
     helloNote2.userDueDate = new Date()
     helloNote3.userDueDate = new Date()
     
@@ -324,7 +320,7 @@ static testLOGGER() {
     function LOGConsole(){
       console.log('notes')
       console.table(Workspace.allNotes)
-      console.log('ws')
+      console.log('workspaces')
       console.table(Workspace.allWorkspace)
       console.log(Workspace.getWorkspace("helloLabel"))
       
