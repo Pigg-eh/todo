@@ -72,8 +72,13 @@ function getNoteInfo(pulledStr){
 
 function insertWSTitle(array,node, container){
   const selector = document.querySelector(node);
-  //change to reduce perhaps HERE ///////////////
-  array.forEach((item) => {
+  
+  let uniqueArray = array.filter(function({label}) {
+    return !this.has(label) && this.add(label);
+  }, new Set(array))
+  
+
+  uniqueArray.forEach((item) => {
     const button = document.createElement('button')
     button.textContent = item.label
     button.setAttribute('data-selector', item.label)
@@ -88,8 +93,11 @@ function insertWSTitle(array,node, container){
     })
   });
 
+  //use uniqueArray to call the menu
+//////////////////////////////////////////////////
   
-  return array
+  
+  return uniqueArray
 }
 
 
