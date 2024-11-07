@@ -5,10 +5,12 @@ import Icon from './img/plus-box.svg'
 
 export function loadUserInterface(){
 
+  
+
   addNavListeners()
   function addNavListeners(){
 
-
+    
     let buttons = document.querySelectorAll('nav button')
     buttons.forEach(button => {
         
@@ -73,9 +75,11 @@ function getNoteInfo(pulledStr){
 function insertWSTitle(array,node, container){
   const selector = document.querySelector(node);
   
-  let uniqueArray = array.filter(function({label}) {
+  let uniqueArray = array.filter(function({label}) { //maybe move this to the WS constructor(data manipulation)
     return !this.has(label) && this.add(label);
   }, new Set(array))
+
+  
   
 
   uniqueArray.forEach((item) => {
@@ -92,6 +96,8 @@ function insertWSTitle(array,node, container){
      
     })
   });
+
+  populateOptions (uniqueArray)///////WIP
 
   //use uniqueArray to call the menu
 //////////////////////////////////////////////////
@@ -203,10 +209,28 @@ function drawNoteUI(node){
     contentChildren.forEach(node => node.remove())
   }
 
+  function populateOptions (array) { //////////////WIP////////////////
+
+    // let object = Object.assign({}, array)
+    // console.log(object)
+
+    let select = document.getElementById("workspace");
+    clearTab('#workspace > *') 
+    
+    array.forEach(index =>
+      select.add(
+        new Option(index.label, index.value, index.selected)
+      )
+    );   
+      
+  }
+
   //FORM RELATED LOGIC
 
   formLoader()
   function formLoader(){
+    
+
     const plusIcon = new Image()
     plusIcon.src = Icon
     const elementAddNote = document.querySelector('div.username')
@@ -317,8 +341,8 @@ static testLOGGER() {
     button.textContent = 'LOG'
     button.addEventListener("click", LOGConsole);
 
-    const helloNote = new Note('hello', 'description', 'helloLabel')
-    const helloNote2 = new Note('hello2', 'description',  'helloLabel')
+    const helloNote = new Note('hello', 'description', 'Default')
+    const helloNote2 = new Note('hello2', 'description',  'Default')
     const helloNote3 = new Note('hello3', 'description', 'helloLabel3')
     helloNote2.priority = 0
     helloNote2.userDueDate = new Date()
@@ -342,22 +366,7 @@ static testLOGGER() {
 
     
 /*
-[X]load in homepage/startpoint loadHome()
-    [X]workspace ui loadMenu()
-      [X]daily/weekly/all
-      []user created workspaces
-    []List of notes in selected workspace loadWorkspace()
-    [X]display single Note info loadNotes()
 
-[X]clear element clearElement()
-[X]insert element insertELement()
-[X]refresh? refreshAll() //maybe refactor but might be unneccessarry 
-    
-[]View all workspaces.
-[]View all todos in each workspace (probably just the title and duedate… perhaps changing color indicator for different priorities).
-[]Expand a single todo to edit its details.
-[X]Delete a todo. **
-[X]check functionality 
 */
 
 

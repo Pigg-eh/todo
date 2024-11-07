@@ -29,22 +29,3 @@ export class Note extends Workspace{
 
 }
 
-
-// export const testNote =()=>{
-// //this will be deleted and potentially moved
-// //new window prompt thing that asks for user input
-
-//   const noteForm = new Note(
-//     prompt('Note Title'), 
-//     prompt('description'), 
-//   )
-//   noteForm.label = prompt('Label')  || 'default'
-//   //a button can be added to add to the Label itself
-//   //use a form for the note things perhaps
-
-//   noteForm.userDueDate = Date()
-
-//   return noteForm
-// }
-
-
