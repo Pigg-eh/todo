@@ -141,6 +141,7 @@ export function loadUserInterface(){
       element.label = changeDrop.value
       drawNoteUI(element)
       cloneWorkspaces()
+      clearTab('div#nav-content > *')
       clearTab('div#content > *') //WIP HI
       alert(`${element.title}'s workspace ${currentLabel} changed to ${element.label}`)
     })
