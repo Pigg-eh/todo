@@ -72,6 +72,7 @@ export function loadUserInterface(){
     drawNoteUI(foundObj)
     cloneWorkspaces()
     addChangeListeners(foundObj)
+    
     //WIP here to pass noteinfo
   }
 
@@ -136,10 +137,12 @@ export function loadUserInterface(){
     const changeDrop = document.getElementById('changeDrop')
     button.addEventListener('click', () =>  {
       clearTab('#content > *')
+      const currentLabel = element.label 
       element.label = changeDrop.value
       drawNoteUI(element)
       cloneWorkspaces()
-      clearTab('div#content > *')
+      clearTab('div#content > *') //WIP HI
+      alert(`${element.title}'s workspace ${currentLabel} changed to ${element.label}`)
     })
   }
   
@@ -191,6 +194,7 @@ export function loadUserInterface(){
     main.textContent = node.description
     dueDate.textContent = node.dueDate
     priority.textContent = 'Priority'
+    priority.classList.add('priority')
     deleteBtn.textContent = 'delete'
     workspace.textContent = node.label
 
@@ -328,9 +332,6 @@ export function loadUserInterface(){
         let priorityValue= +(document.getElementById('priority').value);
 
         callNote(titleValue, descriptionValue, workspaceValue, dateValue, priorityValue)
-
-        // event.preventDefault()
-        //add to DOM
         
       }
 
