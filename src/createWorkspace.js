@@ -4,6 +4,7 @@ import { compareAsc, isToday, isThisWeek} from "date-fns";
 export class Workspace{
   static allNotes = []
   static allWorkspace = []
+  static distinctWS = []
   
   constructor(label, color= 'black'){
     this.label = label || 'Default';
@@ -14,10 +15,7 @@ export class Workspace{
       Workspace.allNotes.push(this);
     }
 
-    // if(this instanceof Workspace){
-    //   Workspace.allWorkspace.push(this);
-    // }
-
+ 
     if(this instanceof Workspace){
       Workspace.allWorkspace.push(this);
     }

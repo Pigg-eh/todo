@@ -38,149 +38,180 @@ export function loadUserInterface(){
           
         }) 
     });
-}
-
-  
-function insertNoteTitle(array, node, container){
-  const selector = document.querySelector(node);
-  
-  array.forEach((item) => {
-    
-    const button = document.createElement('button')
-    button.textContent = item.title
-    button.setAttribute('data-selector', item.title)
-    button.classList.add('note-btn')
-    selector.appendChild(button)
-    
-    button.addEventListener('click', (e) =>{
-      clearTab(container)
-      getNoteInfo(e.target)
-    
-    })
-      
-  });
-  
-  return array
-  
-}
-
-
-function getNoteInfo(pulledStr){ 
-  
-  const string = pulledStr.getAttribute('data-selector')
-  const foundObj = Workspace.allNotes.find((item) => item.title === string)
-  drawNoteUI(foundObj)
-}
-
-function insertWSTitle(array,node, container){
-  const selector = document.querySelector(node);
-  
-  let uniqueArray = array.filter(function({label}) { //maybe move this to the WS constructor(data manipulation)
-    return !this.has(label) && this.add(label);
-  }, new Set(array))
-
-  
-  
-
-  uniqueArray.forEach((item) => {
-    const button = document.createElement('button')
-    button.textContent = item.label
-    button.setAttribute('data-selector', item.label)
-    button.classList.add('ws-btn')
-    selector.appendChild(button)
-    
-    button.addEventListener('click', (e) =>{
-      clearTab('#nav-content > *')
-      clearTab(container)
-      getWSInfo(e.target)
-     
-    })
-  });
-
-  populateOptions (uniqueArray)///////WIP
-
-  //use uniqueArray to call the menu
-//////////////////////////////////////////////////
-  
-  
-  return uniqueArray
-}
-
-
-function getWSInfo(pulledStr){ 
-  
-  const string = pulledStr.getAttribute('data-selector')
-  let array = Workspace.getWorkspace(string)
-  //CLEAR HERE
-  insertNoteTitle(array, 'div#nav-content', '#content > *')
- //Workspace.getWorkspace(item.label)
-}
-
-
-
-function drawNoteUI(node){
-  const content = document.querySelector('.info>#content')
-  const container= document.createElement('div')
-  container.classList.add('note-container')
-  const title = document.createElement('div')
-  title.classList.add('note-title')
-  const checkbox = document.createElement('input');
-  drawCheckbox()
-  checkbox.defaultChecked = node.checked
-  checkbox.addEventListener('click', () =>  {
-    node.checkedBool()
-    clearTab('#content > *')
-    drawNoteUI(node)
-  })
-
-  const main = document.createElement('div')
-  main.classList.add('note-main')
-
-  const dueDate = document.createElement('div')
-  
-
-  const workspace = document.createElement('div')
-  workspace.classList.add('workspace')
-
-  //probably needs to be changed into a radio button
-  const priority = document.createElement('div')
-  priority.style.backgroundColor = priorityColor(node.priority) 
-
-  const deleteBtn = document.createElement('button')
-  deleteBtn.classList.add('delete')
-  deleteBtn.addEventListener('click', () => {
-    node.deleteNote()
-    clearTab('div#nav-content > *')
-    clearTab('div#content > *')
-    alert(`${node.title} deleted!`)
-  })
-  
-  content.append(container)
-  container.append(title, workspace, main, dueDate, priority, deleteBtn)
-    //radio for the prio
-    
-  title.textContent = node.title
-  main.textContent = node.description
-  dueDate.textContent = node.dueDate
-  priority.textContent = 'Priority'
-  deleteBtn.textContent = 'delete'
-  workspace.textContent = node.label
-
-  function drawCheckbox(){
-    document.createElement('input')
-    checkbox.type = "checkbox";
-    checkbox.name = "name";
-    checkbox.value = node.checked;
-    checkbox.id = "id";
-  
-    let label = document.createElement('label');
-    label.htmlFor = "id";
-    label.appendChild(document.createTextNode(checkedState(node.checked)));
-    
-    container.appendChild(checkbox);
-    container.appendChild(label);
   }
-}
+
+  
+  function insertNoteTitle(array, node, container){
+    const selector = document.querySelector(node);
+    
+    array.forEach((item) => {
+      
+      const button = document.createElement('button')
+      button.textContent = item.title
+      button.setAttribute('data-selector', item.title)
+      button.classList.add('note-btn')
+      selector.appendChild(button)
+      
+      button.addEventListener('click', (e) =>{
+        clearTab(container)
+        getNoteInfo(e.target)
+        
+      })
+        
+    });
+    
+    return array
+    
+  }
+
+
+  function getNoteInfo(pulledStr){ 
+    
+    const string = pulledStr.getAttribute('data-selector')
+    const foundObj = Workspace.allNotes.find((item) => item.title === string)
+    drawNoteUI(foundObj)
+    cloneWorkspaces()
+    addChangeListeners(foundObj)
+    //WIP here to pass noteinfo
+  }
+
+
+
+  function insertWSTitle(array,node, container){ 
+    const selector = document.querySelector(node);
+    
+    let uniqueArray = array.filter(function({label}) { //!needs to be moved the WS constructor so I can use it everywhere(data manipulation)////////
+      return !this.has(label) && this.add(label);
+    }, new Set(array))
+    Workspace.distinctWS = uniqueArray
+    
+
+    uniqueArray.forEach((item) => {
+      const button = document.createElement('button')
+      button.textContent = item.label
+      button.setAttribute('data-selector', item.label)
+      button.classList.add('ws-btn')
+      selector.appendChild(button)
+      
+      button.addEventListener('click', (e) =>{
+        clearTab('#nav-content > *')
+        clearTab(container)
+        getWSInfo(e.target)
+      
+      })
+    });
+
+    populateOptions (uniqueArray)
+    return uniqueArray
+  }
+
+  
+
+
+  function getWSInfo(pulledStr){ 
+    
+    const string = pulledStr.getAttribute('data-selector')
+    let array = Workspace.getWorkspace(string)
+    //CLEAR HERE
+    insertNoteTitle(array, 'div#nav-content', '#content > *')
+  //Workspace.getWorkspace(item.label)
+  }
+
+  function cloneWorkspaces(){
+    const wsNode = document.getElementById('workspace') 
+    const clone = wsNode.cloneNode(true) //WIP cloneNode
+    const wsContainer = document.querySelector('.note-container > div.workspace')
+    wsContainer.appendChild(clone)
+    clone.id = 'changeDrop'
+
+    const button = document.createElement('Button')
+    wsContainer.appendChild(button)
+    button.classList.add('change')
+    button.textContent= ('change')
+
+  }
+
+  function addChangeListeners(element){
+    const button = document.querySelector('button.change')
+    const changeDrop = document.getElementById('changeDrop')
+    button.addEventListener('click', () =>  {
+      clearTab('#content > *')
+      element.label = changeDrop.value
+      drawNoteUI(element)
+      cloneWorkspaces()
+      clearTab('div#content > *')
+    })
+  }
+  
+  function drawNoteUI(node){
+    const content = document.querySelector('.info>#content')
+    const container= document.createElement('div')
+    container.classList.add('note-container')
+    const title = document.createElement('div')
+    title.classList.add('note-title')
+    const checkbox = document.createElement('input');
+    drawCheckbox()
+    checkbox.defaultChecked = node.checked
+    checkbox.addEventListener('click', () =>  {
+      node.checkedBool()
+      clearTab('#content > *')
+      drawNoteUI(node)
+    })
+
+    const main = document.createElement('div')
+    main.classList.add('note-main')
+
+    const dueDate = document.createElement('div')
+    
+    const workspace = document.createElement('div')
+    workspace.classList.add('workspace')
+
+
+    
+
+    //probably needs to be changed into a radio button
+    const priority = document.createElement('div')
+    priority.style.backgroundColor = priorityColor(node.priority) 
+
+    const deleteBtn = document.createElement('button')
+    deleteBtn.classList.add('delete')
+    deleteBtn.addEventListener('click', () => {
+      node.deleteNote()
+      clearTab('div#nav-content > *')
+      clearTab('div#content > *')
+      alert(`${node.title} deleted!`)
+    })
+    
+    content.append(container)
+    container.append(title, workspace, main, dueDate, priority, deleteBtn)
+      //radio for the prio
+
+
+    title.textContent = node.title
+    main.textContent = node.description
+    dueDate.textContent = node.dueDate
+    priority.textContent = 'Priority'
+    deleteBtn.textContent = 'delete'
+    workspace.textContent = node.label
+
+
+    function drawCheckbox(){
+      document.createElement('input')
+      checkbox.type = "checkbox";
+      checkbox.name = "name";
+      checkbox.value = node.checked;
+      checkbox.id = "id";
+    
+      let label = document.createElement('label');
+      label.htmlFor = "id";
+      label.appendChild(document.createTextNode(checkedState(node.checked)));
+      
+      container.appendChild(checkbox);
+      container.appendChild(label);
+    }
+  }
+
+  //MISC FUNCTIONS
 
   function checkedState(state) {
         if (!state){
@@ -209,10 +240,7 @@ function drawNoteUI(node){
     contentChildren.forEach(node => node.remove())
   }
 
-  function populateOptions (array) { //////////////WIP////////////////
-
-    // let object = Object.assign({}, array)
-    // console.log(object)
+  function populateOptions (array) {
 
     let select = document.getElementById("workspace");
     clearTab('#workspace > *') 
@@ -222,6 +250,8 @@ function drawNoteUI(node){
         new Option(index.label, index.value, index.selected)
       )
     );   
+
+
       
   }
 
@@ -260,7 +290,7 @@ function drawNoteUI(node){
         insertNoteTitle(array, 'div#nav-content','#content > *')
        
         //PAGE KEEPS RELOADING
-        //////LEARNINGS: Fixed by targetting the fucking form rather than the button//////
+        //?LEARNINGS: Fixed by targetting the fucking form rather than the button//
       }, true)
     }
 
