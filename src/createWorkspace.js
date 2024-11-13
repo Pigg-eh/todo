@@ -18,9 +18,20 @@ export class Workspace{
  
     if(this instanceof Workspace){
       Workspace.allWorkspace.push(this);
+      
     }
   }
 
+  static storeLocal(noteString,wsString){
+    noteString = JSON.stringify(this.allNotes)
+    wsString = JSON.stringify(this.allWorkspace)
+    localStorage.setItem('Notes', noteString)
+    localStorage.setItem('Workspace', wsString)
+  }
+
+  static getLocal(key){
+    this.allWorkspace= JSON.parse(localStorage.getItem(key))
+  }
 
   static getWorkspace(selectedLabel){
     return Workspace.allNotes.filter((note) => note.label === selectedLabel);

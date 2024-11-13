@@ -1,12 +1,16 @@
 import { Note, testNote} from './createNote';
 import { Workspace} from './createWorkspace';
-import { isToday, isThisWeek, isExists } from 'date-fns';
+import { isToday, isThisWeek } from 'date-fns';
 import Icon from './img/plus-box.svg'
 
 export function loadUserInterface(){
 
+  console.log(localStorage.getItem('WS Array'))
   
 
+
+
+//DOM manipulation
   addNavListeners()
   function addNavListeners(){
 
@@ -73,7 +77,6 @@ export function loadUserInterface(){
     cloneWorkspaces()
     addChangeListeners(foundObj)
     
-    //WIP here to pass noteinfo
   }
 
 
@@ -120,7 +123,7 @@ export function loadUserInterface(){
 
   function cloneWorkspaces(){
     const wsNode = document.getElementById('workspace') 
-    const clone = wsNode.cloneNode(true) //WIP cloneNode
+    const clone = wsNode.cloneNode(true) 
     const wsContainer = document.querySelector('.note-container > div.workspace')
     wsContainer.appendChild(clone)
     clone.id = 'changeDrop'
@@ -142,7 +145,7 @@ export function loadUserInterface(){
       drawNoteUI(element)
       cloneWorkspaces()
       clearTab('div#nav-content > *')
-      clearTab('div#content > *') //WIP HI
+      clearTab('div#content > *') 
       alert(`${element.title}'s workspace ${currentLabel} changed to ${element.label}`)
     })
   }
@@ -173,10 +176,9 @@ export function loadUserInterface(){
 
     
 
-    //probably needs to be changed into a radio button
     const priority = document.createElement('div')
-    priority.style.backgroundColor = priorityColor(node.priority) 
-
+    priority.style.backgroundColor = priorityColor(node.priority) //radio for the prio
+    // array
     const deleteBtn = document.createElement('button')
     deleteBtn.classList.add('delete')
     deleteBtn.addEventListener('click', () => {
@@ -188,13 +190,13 @@ export function loadUserInterface(){
     
     content.append(container)
     container.append(title, workspace, main, dueDate, priority, deleteBtn)
-      //radio for the prio
+  
 
 
     title.textContent = node.title
     main.textContent = node.description
     dueDate.textContent = node.dueDate
-    priority.textContent = 'Priority'
+    priority.textContent = 'Priority'     
     priority.classList.add('priority')
     deleteBtn.textContent = 'delete'
     workspace.textContent = node.label
@@ -295,7 +297,7 @@ export function loadUserInterface(){
         insertNoteTitle(array, 'div#nav-content','#content > *')
        
         //PAGE KEEPS RELOADING
-        //?LEARNINGS: Fixed by targetting the fucking form rather than the button//
+        //?LEARNINGS: Fixed by targetting the form rather than the button//
       }, true)
     }
 
@@ -305,6 +307,9 @@ export function loadUserInterface(){
         let currentForm = document.getElementById(node)
         currentForm.reset()
         clearTab('#user-ws-content > *')
+        //WIP
+        // localStorage.getItem('WS Array')
+        Workspace.storeLocal()
         insertWSTitle(array, '#user-ws-content','#content > *') 
       }, true)
     }
@@ -339,7 +344,7 @@ export function loadUserInterface(){
       function getWSInput (event){
         event.preventDefault()
         let workspaceValue = document.getElementById('add-ws').value
-
+        
         callWS(workspaceValue)
       }
 
