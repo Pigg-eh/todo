@@ -11,12 +11,13 @@ export function loadUserInterface(){
 
 //DOM manipulation
   addNavListeners()
+  insertWSTitle(Workspace.allWorkspace, '#user-ws-content','#content > *') 
   function addNavListeners(){
-
+    
     
     let buttons = document.querySelectorAll('nav button')
     buttons.forEach(button => {
-        
+      
       button.addEventListener('click', (e) =>{
         clearTab('div#nav-content > *')
 
@@ -41,6 +42,9 @@ export function loadUserInterface(){
           
         }) 
     });
+
+      //addworkspace thingy here
+      
   }
 
   
@@ -144,6 +148,8 @@ export function loadUserInterface(){
       clearTab('div#nav-content > *')
       clearTab('div#content > *') 
       alert(`${element.title}'s workspace ${currentLabel} changed to ${element.label}`)
+      localStorage.clear()
+      Workspace.setLocal()
     })
   }
   
@@ -159,11 +165,14 @@ export function loadUserInterface(){
     title.classList.add('note-title')
     const checkbox = document.createElement('input');
     drawCheckbox()
+    console.log('node.checked')
+    console.log(node.checked)
     checkbox.defaultChecked = node.checked
-    checkbox.addEventListener('click', () =>  {
-      node.checkedBool() //not a function daw
+    checkbox.addEventListener('change', () =>  {
+      node.checkedBool() 
       clearTab('#content > *')
       drawNoteUI(node)
+      
     })
 
     const main = document.createElement('div')
@@ -361,7 +370,6 @@ export function loadUserInterface(){
       }
 
   }
-
   
 
 }

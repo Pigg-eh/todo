@@ -1,5 +1,5 @@
 import { Note } from "./createNote";
-import { isToday, isThisWeek, isExists} from "date-fns";
+import { isToday, isThisWeek, isExists, isTomorrow} from "date-fns";
 
 export class Workspace{
   static allNotes = []
@@ -35,6 +35,10 @@ export class Workspace{
 
   static getLocal(){ //running as intended so far. problems in calling checkedbool and deleenote WIP
       
+      if (localStorage.length===0){
+        Workspace.testNotes()
+      }else {
+
       const array = []
       
       for (let i = 0; i < localStorage.length; i++){
@@ -50,9 +54,7 @@ export class Workspace{
         i++
         //Problem was that the note didn't extend to the Workspace object, so the function didn't exist
       });
-      
-
-      
+    }
 
   }
 
@@ -75,17 +77,15 @@ export class Workspace{
   deleteNote(){
     const referenceNote = Workspace.allNotes.indexOf(this) //select note
     Workspace.allNotes.splice(referenceNote, 1);
+    localStorage.clear()
     Workspace.setLocal()
     console.log('runs at delete note')
   }
 
   static testNotes() {
-      const helloNote = new Note('hello', 'description', 'Default')
-      const helloNote2 = new Note('hello2', 'description',  'Default')
-      const helloNote3 = new Note('hello3', 'description', 'helloLabel3')
-      helloNote2.priority = 0
-      helloNote2.userDueDate = new Date()
-      helloNote3.userDueDate = new Date()
+      const helloNote = new Note('hello', 'This is a description', 'Default', new Date(), 2, true)
+      const helloNote2 = new Note('hello2', 'This is another description',  'Default', new Date(), 2, true)
+      const helloNote3 = new Note('hello3', 'This is the last default description', 'helloLabel3', new Date(isTomorrow()), 0, false)
   }
 }
 

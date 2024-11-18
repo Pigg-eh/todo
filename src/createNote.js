@@ -7,10 +7,9 @@ export class Note extends Workspace{
     super(label);
     this.title = title;
     this.description = description;
-    // this.dateCreated = Date();
-    this.dueDate= ''
-    this.priority = 2;
-    this.checked = false;
+    this.dueDate= dueDate
+    this.priority = priority;
+    this.checked = checked;
   }
   get userDueDate(){
     if (this.dueDate != ''){
@@ -23,7 +22,11 @@ export class Note extends Workspace{
   }
   //Workspace.allNotes[0].userDueDate = ('2024-10-01')
 
-  checkedBool =()=> this.checked = !this.checked
+  checkedBool = ()=> {
+    this.checked = !this.checked
+    localStorage.clear()
+    Workspace.setLocal()
+  }
 
 
 
