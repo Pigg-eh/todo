@@ -1,16 +1,13 @@
+
 import './style.css';
-import {loadUserInterface, TestToolkit} from './ui'
+import {loadUserInterface} from './ui'
 
 
 
 loadUserInterface()
 
-
-
-
-
-document.body.appendChild(TestToolkit.testLOGGER());
-
+// Workspace.testNotes()
+    // document.body.appendChild(TestToolkit.testLOGGER());
 /*
 note: 
 */

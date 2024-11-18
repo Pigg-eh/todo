@@ -3,7 +3,7 @@ import { Workspace} from "./createWorkspace";
 
 export class Note extends Workspace{
   
-  constructor(title, description,label  ){
+  constructor(title, description,label, dueDate,priority,checked  ){
     super(label);
     this.title = title;
     this.description = description;

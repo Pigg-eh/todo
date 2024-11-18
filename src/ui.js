@@ -1,14 +1,13 @@
 import { Note, testNote} from './createNote';
 import { Workspace} from './createWorkspace';
-import { isToday, isThisWeek } from 'date-fns';
+import { isToday, isThisWeek, isExists } from 'date-fns';
 import Icon from './img/plus-box.svg'
 
 export function loadUserInterface(){
 
-  console.log(localStorage.getItem('WS Array'))
+  Workspace.testNotes()
+  Workspace.getLocal() //called twice?
   
-
-
 
 //DOM manipulation
   addNavListeners()
@@ -47,7 +46,6 @@ export function loadUserInterface(){
   
   function insertNoteTitle(array, node, container){
     const selector = document.querySelector(node);
-    
     array.forEach((item) => {
       
       const button = document.createElement('button')
@@ -116,7 +114,6 @@ export function loadUserInterface(){
     
     const string = pulledStr.getAttribute('data-selector')
     let array = Workspace.getWorkspace(string)
-    //CLEAR HERE
     insertNoteTitle(array, 'div#nav-content', '#content > *')
   //Workspace.getWorkspace(item.label)
   }
@@ -151,6 +148,10 @@ export function loadUserInterface(){
   }
   
   function drawNoteUI(node){
+    console.log('checking node value')
+    console.log(node)
+
+    
     const content = document.querySelector('.info>#content')
     const container= document.createElement('div')
     container.classList.add('note-container')
@@ -160,7 +161,7 @@ export function loadUserInterface(){
     drawCheckbox()
     checkbox.defaultChecked = node.checked
     checkbox.addEventListener('click', () =>  {
-      node.checkedBool()
+      node.checkedBool() //not a function daw
       clearTab('#content > *')
       drawNoteUI(node)
     })
@@ -182,7 +183,9 @@ export function loadUserInterface(){
     const deleteBtn = document.createElement('button')
     deleteBtn.classList.add('delete')
     deleteBtn.addEventListener('click', () => {
-      node.deleteNote()
+      console.log('node')
+      console.log(node)
+      node.deleteNote() //not a function error thrown WIP
       clearTab('div#nav-content > *')
       clearTab('div#content > *')
       alert(`${node.title} deleted!`)
@@ -295,7 +298,6 @@ export function loadUserInterface(){
         currentForm.reset()
         clearTab('div#nav-content > *') 
         insertNoteTitle(array, 'div#nav-content','#content > *')
-       
         //PAGE KEEPS RELOADING
         //?LEARNINGS: Fixed by targetting the form rather than the button//
       }, true)
@@ -307,9 +309,6 @@ export function loadUserInterface(){
         let currentForm = document.getElementById(node)
         currentForm.reset()
         clearTab('#user-ws-content > *')
-        //WIP
-        // localStorage.getItem('WS Array')
-        Workspace.storeLocal()
         insertWSTitle(array, '#user-ws-content','#content > *') 
       }, true)
     }
@@ -338,7 +337,7 @@ export function loadUserInterface(){
         let priorityValue= +(document.getElementById('priority').value);
 
         callNote(titleValue, descriptionValue, workspaceValue, dateValue, priorityValue)
-        
+        Workspace.setLocal()
       }
 
       function getWSInput (event){
@@ -353,7 +352,6 @@ export function loadUserInterface(){
         currentNote.label = workspace
         currentNote.userDueDate = date
         currentNote.priority=priority
-
         return currentNote  
       }
 
@@ -364,42 +362,11 @@ export function loadUserInterface(){
 
   }
 
+  
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export class TestToolkit{
-
-
-static testLOGGER() {
-
-    const button = document.createElement('button');
-    
-    button.textContent = 'LOG'
-    button.addEventListener("click", LOGConsole);
-
-    const helloNote = new Note('hello', 'description', 'Default')
-    const helloNote2 = new Note('hello2', 'description',  'Default')
-    const helloNote3 = new Note('hello3', 'description', 'helloLabel3')
-    helloNote2.priority = 0
-    helloNote2.userDueDate = new Date()
-    helloNote3.userDueDate = new Date()
-    
-
-    function LOGConsole(){
-      console.log('notes')
-      console.table(Workspace.allNotes)
-      console.log('workspaces')
-      console.table(Workspace.allWorkspace)
-      console.log(Workspace.getWorkspace("helloLabel"))
-      
-      Workspace.allNotes[0].userDueDate = ('2024-10-11')
-    } 
-    
-    return button;
-  }
-
-}
 
     
 /*
